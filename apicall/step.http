@@ -1,0 +1,10 @@
+
+###
+GET http://localhost:9093/api/v1/step/getOne
+Content-Type: application/json
+
+###
+GET http://localhost:9093/api/v1/step/getAll
+Content-Type: application/json
+
+
