@@ -3,28 +3,23 @@ package transport.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.jdbc.support.GeneratedKeyHolder;
-import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Service;
-import transport.model.StopInfo;
-import transport.repository.StopJpaRepo;
+import transport.model.Role;
+import transport.model.UserProfile;
+import transport.repository.RoleJpaRepo;
+import transport.repository.UserProfileJpaRepo;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
-import java.math.BigDecimal;
-import java.sql.*;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.Optional;
 
 
 @SuppressWarnings("Duplicates")
 @Service
 @Transactional
-public class StopService {
+public class RoleService {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
@@ -36,38 +31,28 @@ public class StopService {
     EntityManager entityManager;
 
     @Autowired
-    StopJpaRepo stopJpaRepo;
+    RoleJpaRepo roleJpaRepo;
 
-    public StopInfo save(StopInfo stopInfo) {
+    public Role save(Role role) {
         try {
-            return stopJpaRepo.save(stopInfo);
+            return roleJpaRepo.save(role);
         }catch (Exception e){
             return null;
         }
     }
 
-    public boolean saveAll(List<StopInfo> stopInfoList) {
+    public List<Role> getAll() {
         try {
-             stopJpaRepo.saveAll(stopInfoList);
-            return true;
-        }catch (Exception e){
-            return false;
-        }
-    }
-
-    public List<StopInfo> getAll() {
-        try {
-            return stopJpaRepo.findAll();
+            return roleJpaRepo.findAll();
         }catch (Exception e){
             return null;
         }
     }
     public Integer getCount() {
         try {
-            return stopJpaRepo.getCount();
+            return roleJpaRepo.getCount();
         }catch (Exception e){
             return 0;
         }
     }
-
 }

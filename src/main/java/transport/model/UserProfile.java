@@ -2,10 +2,7 @@ package transport.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -17,6 +14,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class UserProfile {
 
     @Id
@@ -83,6 +81,15 @@ public class UserProfile {
     }
 
     public UserProfile(String userName, String password, boolean enabled) {
+        this.userName = userName;
+        this.password = password;
+        this.enabled = enabled;
+    }
+
+    public UserProfile(String name, String email, String mobile, String userName, String password, boolean enabled) {
+        this.name = name;
+        this.email = email;
+        this.mobile = mobile;
         this.userName = userName;
         this.password = password;
         this.enabled = enabled;

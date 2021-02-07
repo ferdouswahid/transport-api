@@ -1,9 +1,6 @@
 package transport.model;
 
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -12,13 +9,11 @@ import javax.persistence.*;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class UserRole {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    private String roleName;
-    private Long userId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userProfile_id", nullable = false)
@@ -34,4 +29,8 @@ public class UserRole {
     @Column(name = "role_id", insertable = false, updatable = false)
     private Long roleId;
 
+    public UserRole(UserProfile userProfile, Role role) {
+        this.userProfile = userProfile;
+        this.role = role;
+    }
 }
