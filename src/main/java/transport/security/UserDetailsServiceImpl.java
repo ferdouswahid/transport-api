@@ -29,24 +29,25 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetailsImpl loadUserByUsername(String username) throws UsernameNotFoundException {
-        List<Map<String,Object>> userList=jdbcTemplate.query(" SELECT user_id,username,password FROM user_profile up WHERE up.username=? ",
+
+        List<Map<String,Object>> userList=jdbcTemplate.query(" SELECT id,user_name,password FROM UserProfile up WHERE up.user_name=? ",
                 new Object[] {username}, (resultSet, rowNum) ->{
                     Map<String,Object> u=new HashMap<>();
-                    u.put("user_id",resultSet.getLong("user_id"));
-                    u.put("username",resultSet.getString("username"));
+                    u.put("userId",resultSet.getLong("id"));
+                    u.put("username",resultSet.getString("user_name"));
                     u.put("password",resultSet.getString("password"));
                     return u;
                 });
         if(userList.isEmpty()){  throw new UsernameNotFoundException("Incorrect username");  }
 
-        List<String> roleList=jdbcTemplate.query(" SELECT role_name FROM user_role ur WHERE ur.user_id=? ",
-                new Object[] {userList.get(0).get("user_id")}, (resultSet, rowNum) ->{ return resultSet.getString("role_name");         });
+        List<String> roleList=jdbcTemplate.query(" SELECT r.name FROM UserRole ur inner join Role r on ur.role_id = r.id WHERE ur.userProfile_id=? ",
+                new Object[] {userList.get(0).get("userId")}, (resultSet, rowNum) ->{ return resultSet.getString("name");         });
 
         if(roleList.isEmpty()){
-            return new UserDetailsImpl((Long)userList.get(0).get("user_id"),(String)userList.get(0).get("username"),(String)userList.get(0).get("password"),null);
+            return new UserDetailsImpl((Long)userList.get(0).get("userId"),(String)userList.get(0).get("username"),(String)userList.get(0).get("password"),null);
         }
         else{
-            return new UserDetailsImpl((Long)userList.get(0).get("user_id"),(String)userList.get(0).get("username"),(String)userList.get(0).get("password"),
+            return new UserDetailsImpl((Long)userList.get(0).get("userId"),(String)userList.get(0).get("username"),(String)userList.get(0).get("password"),
                     Arrays.asList(new SimpleGrantedAuthority(  roleList.stream().collect(Collectors.joining(",")))));
         }
 

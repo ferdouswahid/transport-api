@@ -14,7 +14,7 @@ import java.util.function.Function;
 @Service
 public class JwtUtil {
 
-    private String SECRET_KEY = "my_super_awesome_secret_2020";
+    private String SECRET_KEY = "MY_super_awesome_secret_2021_iewpofj_23422827";
 
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
@@ -38,7 +38,7 @@ public class JwtUtil {
 
     public String generateToken(UserDetailsImpl userDetailsImpl) {
         Map<String, Object> claims = new HashMap<>();
-        claims.put("user_id",userDetailsImpl.getUserId());
+        claims.put("userId",userDetailsImpl.getUserId());
         claims.put("username",userDetailsImpl.getUsername());
         claims.put("roleList",userDetailsImpl.getAuthorities());
         return Jwts.builder().setClaims(claims).setSubject(userDetailsImpl.getUsername()).setIssuedAt(new Date(System.currentTimeMillis()))

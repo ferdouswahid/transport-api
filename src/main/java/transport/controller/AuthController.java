@@ -65,6 +65,7 @@ class AuthController {
         private String username;
         private String password;
     }
+
     @AllArgsConstructor  @Getter
     public static class AuthenticationResponse implements Serializable {
         private final int httpCode;

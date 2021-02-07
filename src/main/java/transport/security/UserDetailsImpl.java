@@ -7,24 +7,25 @@ import java.util.Collection;
 
 public class UserDetailsImpl implements UserDetails {
 
-    public Long userid;
+    public Long userId;
     public String username;
     public String password;
     Collection<? extends GrantedAuthority> roleList;
 
     public UserDetailsImpl(){ }
 
-    public UserDetailsImpl(Long userid,String username,String password,
+    public UserDetailsImpl(Long userId,String username,String password,
                            Collection<? extends GrantedAuthority> roleList){
-        this.userid=userid;
+        this.userId=userId;
         this.username=username;
         this.password=password;
         this.roleList=roleList;
     }
 
     public Long getUserId() {
-        return this.userid;
+        return this.userId;
     }
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
