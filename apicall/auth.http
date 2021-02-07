@@ -12,15 +12,17 @@ Content-Type: application/json
     client.global.set("my_jwt", response.body.jwtToken);
 %}
 
+
+
 ###
 
-GET http://localhost:9093/api/v1/secureResourceTest
+POST http://localhost:9093/api/v1/userProfile/registration
 Content-Type: application/json
-Authorization: Bearer {{my_jwt}}
-####
 
-
-GET http://localhost:9093//api/v1/sampleRegistration?name=shaiful&username=shaiful&password=456
-Content-Type: application/json
+{
+"name": "Ferdous",
+"userName": "root2",
+"password": "123456"
+}
 ####
 

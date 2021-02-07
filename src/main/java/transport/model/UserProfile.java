@@ -15,6 +15,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 public class UserProfile {
 
     @Id
@@ -25,15 +26,15 @@ public class UserProfile {
     private String email;
     private String mobile;
 
-    @Column(name = "user_name",nullable = false, unique = true, length = 50)
+    @Column(name = "user_name",nullable = false, unique = true)
     private String userName;
 
     @JsonIgnore
     @Column(name = "password")
     private String password;
 
-    @Transient
-    private String passwordConfirm;
+//    @Transient
+//    private String passwordConfirm;
 
     @Column(name = "enabled", nullable = false)
     private boolean enabled = true;
@@ -86,6 +87,12 @@ public class UserProfile {
         this.enabled = enabled;
     }
 
+    public UserProfile(String name,String userName, String password) {
+        this.name = name;
+        this.userName = userName;
+        this.password = password;
+
+    }
     public UserProfile(String name, String email, String mobile, String userName, String password, boolean enabled) {
         this.name = name;
         this.email = email;

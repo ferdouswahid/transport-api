@@ -55,4 +55,9 @@ public class RoleService {
             return 0;
         }
     }
+
+    public Role getRoleByName(String roleName) {
+
+        return roleJpaRepo.getFirstByName(roleName);
+    }
 }

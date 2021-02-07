@@ -8,4 +8,7 @@ public interface RoleJpaRepo extends JpaRepository<Role, Long> {
 
     @Query(value = "SELECT count(r) from Role r")
     Integer getCount();
+
+    Role getFirstByName(String name);
+
 }
