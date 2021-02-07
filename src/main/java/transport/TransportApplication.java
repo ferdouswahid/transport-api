@@ -3,8 +3,10 @@ package transport;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.event.EventListener;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.client.RestTemplate;
 
@@ -25,6 +27,11 @@ public class TransportApplication extends SpringBootServletInitializer {
 
 	public static void main(String[] args) throws Exception {
 		SpringApplication.run(TransportApplication.class, args);
+	}
+
+	@EventListener(ApplicationReadyEvent.class)
+	public void initDbAfterStartup() {
+		System.out.println("initializing DB after startup");
 	}
 
 }
