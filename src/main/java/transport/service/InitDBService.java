@@ -21,6 +21,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import transport.dto.StopDto;
 import transport.model.Role;
 import transport.model.StopInfo;
 import transport.model.UserProfile;
@@ -30,20 +31,6 @@ import transport.repository.UserRoleJpaRepo;
 
 import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
-
-import javax.net.ssl.HostnameVerifier;
-import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLSession;
-import javax.net.ssl.TrustManager;
-import javax.net.ssl.X509TrustManager;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import java.security.KeyManagementException;
-import java.security.NoSuchAlgorithmException;
-import java.security.cert.X509Certificate;
-
 
 import java.sql.PreparedStatement;
 import java.util.ArrayList;
@@ -59,6 +46,7 @@ public class InitDBService {
     private JdbcTemplate jdbcTemplate;
     @Autowired
     private PasswordEncoder passwordEncoder;
+
     @Autowired
     private RestTemplate restTemplate;
 
@@ -75,7 +63,7 @@ public class InitDBService {
     private StopService stopService;
 
     @Value("${stops.resource.url}")
-    private String RESOURCE_URL;
+    private String STOPS_RESOURCE_URL;
 
 
     @PostConstruct
@@ -108,7 +96,7 @@ public class InitDBService {
                 restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
 
                 ObjectMapper objectMapper = new ObjectMapper();
-                String retStr = restTemplate.getForObject(RESOURCE_URL, String.class, requestEntity);
+                String retStr = restTemplate.getForObject(STOPS_RESOURCE_URL, String.class, requestEntity);
 
                 StopDto stopDto = objectMapper.readValue(retStr, new TypeReference<StopDto>() {});
                 //System.out.println("stopDto: " + stopDto);
@@ -129,11 +117,6 @@ public class InitDBService {
         }
     }
 
-    @Setter
-    @Getter
-    @ToString
-    public static class StopDto {
-        List<StopInfo> stops;
-    }
+
 
 }

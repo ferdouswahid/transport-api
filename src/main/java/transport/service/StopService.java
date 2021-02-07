@@ -70,4 +70,11 @@ public class StopService {
         }
     }
 
+    public StopInfo getOneById(String id) {
+        try {
+            return stopJpaRepo.findById(id).orElse(null);
+        }catch (Exception e){
+            return null;
+        }
+    }
 }
