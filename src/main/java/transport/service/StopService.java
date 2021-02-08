@@ -1,6 +1,11 @@
 package transport.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -77,4 +82,16 @@ public class StopService {
             return null;
         }
     }
+
+    public Page<StopInfo> getAllWithPage(int pageNumber, int pageSize) {
+        try {
+
+            Pageable pageable = PageRequest.of(pageNumber, pageSize);
+            //return stopJpaRepo.getAllWithPage(pageable);
+            return stopJpaRepo.findAll(pageable);
+        }catch (Exception e){
+            return null;
+        }
+    }
+
 }

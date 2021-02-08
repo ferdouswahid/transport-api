@@ -3,6 +3,7 @@ package transport.controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -48,6 +49,20 @@ public class StopController {
         }
     }
 
+    @GetMapping(value = "/getAllWithPage")
+    public @ResponseBody ResponseEntity<?> getAllWithPage(
+            @RequestParam(value = "pageElementSize", required = false,defaultValue="10") int pageElementSize,
+            @RequestParam(value = "pageNo", required = false,defaultValue="1") int pageNo ) {
+        try {
 
+            int currentPageNumber = pageNo-1;
+            Page<StopInfo> stopInfoPage= stopService.getAllWithPage(currentPageNumber,pageElementSize);
+
+            return ResponseEntity.ok(new ResponseMessageDto<>(true,"Data retrieve successfully.", stopInfoPage.getContent(),stopInfoPage.getNumber(), stopInfoPage.getTotalElements(), stopInfoPage.getTotalPages()));
+        } catch(Exception e){
+            e.printStackTrace();
+            return new ResponseEntity<>(new ResponseMessageDto<>(false,"Failed to retrieve the data. Please try again.", null,0,0,0), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
 }
