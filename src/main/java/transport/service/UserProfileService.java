@@ -76,4 +76,15 @@ public class UserProfileService {
             return new ResponseMessageDto<>(false,e.getMessage(),null);
         }
     }
+
+    public UserProfile getDetail(Long userId) {
+        try {
+
+            return userProfileJpaRepo.findById(userId).orElse(null);
+
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
 }
