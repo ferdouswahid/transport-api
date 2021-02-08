@@ -49,6 +49,7 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 
                 .antMatchers(HttpMethod.GET,"/api/v1/stop/getAll").authenticated()
+                .antMatchers(HttpMethod.GET,"/api/v1/stop/getAllWithPage").authenticated()
                 .antMatchers(HttpMethod.GET,"/api/v1/stop/getOne").authenticated()
 
                 .anyRequest().denyAll()

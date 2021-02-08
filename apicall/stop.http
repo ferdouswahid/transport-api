@@ -8,5 +8,10 @@ Authorization: Bearer {{my_jwt}}
 GET http://localhost:9093/api/v1/stop/getAll
 Content-Type: application/json
 Authorization: Bearer {{my_jwt}}
+###
+
+GET http://localhost:9093/api/v1/stop/getAllWithPage?pageNo=1&pageElementSize=2
+Content-Type: application/json
+Authorization: Bearer {{my_jwt}}
 
 
