@@ -48,7 +48,7 @@ public class StepService {
     private String STEP_RESOURCE_URL;
 
 
-    public List<?> getAllStepById(String id) {
+    public List<?> getAllStepById(String stopId) {
         try {
             HttpHeaders headers = new HttpHeaders();
             headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
@@ -58,7 +58,7 @@ public class StepService {
             restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
 
             ObjectMapper objectMapper = new ObjectMapper();
-            String retStr = restTemplate.getForObject(STEP_RESOURCE_URL + id, String.class, requestEntity);
+            String retStr = restTemplate.getForObject(STEP_RESOURCE_URL + stopId, String.class, requestEntity);
 
             List<StepDto> stepDtoList = objectMapper.readValue(retStr, new TypeReference<List<StepDto>>() {
             });

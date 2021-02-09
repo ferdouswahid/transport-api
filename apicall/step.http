@@ -1,6 +1,6 @@
 
 ###
-GET http://localhost:9093/api/v1/step/getOne?id=1003
+GET http://localhost:9093/api/v1/step?stopId=1003
 Content-Type: application/json
 Authorization: Bearer {{my_jwt}}
 

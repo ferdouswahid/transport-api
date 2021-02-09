@@ -20,12 +20,12 @@ public class StepController {
     @Autowired
     StepService stepService;
 
-    @GetMapping(value = "/getOne")
+    @GetMapping
     public @ResponseBody
-    ResponseEntity<?> getOneById(@RequestParam(value = "id") String id) {
+    ResponseEntity<?> getOneById(@RequestParam(value = "stopId") String stopId) {
         try {
 
-            return ResponseEntity.ok(new ResponseMessageDto<>(true,"Data retrieve successfully.", stepService.getAllStepById(id)));
+            return ResponseEntity.ok(new ResponseMessageDto<>(true,"Data retrieve successfully.", stepService.getAllStepById(stopId)));
         } catch(Exception e){
             e.printStackTrace();
             return new ResponseEntity<>(new ResponseMessageDto<>(false,"Failed to retrieve the data. Please try again.", null), HttpStatus.INTERNAL_SERVER_ERROR);

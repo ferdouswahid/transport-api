@@ -25,7 +25,7 @@ public class StopController {
     @Autowired
     StopService stopService;
 
-    @GetMapping(value = "/getAll")
+    @GetMapping
     public @ResponseBody ResponseEntity<?> getAll() {
         try {
 
@@ -34,34 +34,6 @@ public class StopController {
         } catch(Exception e){
             e.printStackTrace();
             return new ResponseEntity<>(new ResponseMessageDto<>(false,"Failed to retrieve the data. Please try again.", null), HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
-
-    @GetMapping(value = "/getOne")
-    public @ResponseBody ResponseEntity<?>  getOneById(@RequestParam(value = "id") String id) {
-        try {
-
-            StopInfo stopInfo= stopService.getOneById(id);
-            return ResponseEntity.ok(new ResponseMessageDto<>(true,"Data retrieve successfully.", stopInfo));
-        } catch(Exception e){
-            e.printStackTrace();
-            return new ResponseEntity<>(new ResponseMessageDto<>(false,"Failed to retrieve the data. Please try again.", null), HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
-
-    @GetMapping(value = "/getAllWithPage")
-    public @ResponseBody ResponseEntity<?> getAllWithPage(
-            @RequestParam(value = "pageElementSize", required = false,defaultValue="10") int pageElementSize,
-            @RequestParam(value = "pageNo", required = false,defaultValue="1") int pageNo ) {
-        try {
-
-            int currentPageNumber = pageNo-1;
-            Page<StopInfo> stopInfoPage= stopService.getAllWithPage(currentPageNumber,pageElementSize);
-
-            return ResponseEntity.ok(new ResponseMessageDto<>(true,"Data retrieve successfully.", stopInfoPage.getContent(),stopInfoPage.getNumber(), stopInfoPage.getTotalElements(), stopInfoPage.getTotalPages()));
-        } catch(Exception e){
-            e.printStackTrace();
-            return new ResponseEntity<>(new ResponseMessageDto<>(false,"Failed to retrieve the data. Please try again.", null,0,0,0), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
