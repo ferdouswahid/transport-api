@@ -2,6 +2,6 @@
 ###
 GET http://localhost:9093/api/v1/step?stopId=1003
 Content-Type: application/json
-Authorization: Bearer {{my_jwt}}
+Authorization: Bearer {{jwt_token}}
 
 
