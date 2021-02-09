@@ -20,10 +20,10 @@ public class TransportApplication extends SpringBootServletInitializer {
 		return new RestTemplate();
 	}
 
-	@Override
+	/*@Override
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
 		return builder.sources(TransportApplication.class);
-	}
+	}*/
 
 	public static void main(String[] args) throws Exception {
 		SpringApplication.run(TransportApplication.class, args);
