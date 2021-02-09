@@ -8,8 +8,8 @@ mvn -N io.takari:maven:wrapper
 ./mvnw package && java -jar target/transport_api.jar
 
 ### Docker
-docker build -t springio/transport_api .
-docker run -p 8080:8080 springio/transport_api
+docker image build -t transport_api .
+docker run -p 8080:8080 transport_api
 
 
 ### To run on development mode:

@@ -1,0 +1,34 @@
+version: "3"
+services:
+  transport_api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: transport_api
+    restart: always
+    ports:
+      - "9093:9093"
+    networks:
+      - transport_api-mysql
+    links:
+      - mysqldb
+    depends_on:
+      - mysqldb
+
+  mysqldb:
+    image: mysql:8
+    networks:
+      - transport_api-mysql
+    environment:
+      ###############################
+      #Change Parameters accordingly
+      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_DATABASE: transport
+      MYSQL_USER: root
+      ###############################
+    ports:
+        - "3308:3306"
+
+
+networks:
+  transport_api-mysql:
